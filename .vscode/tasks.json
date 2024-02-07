@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "javac",
+      "type": "shell",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "command": "javac",
+      "args": ["-encoding", "utf-8", "-cp", "'.;${fileDirname}'", "${file}"]
+    },
+    {
+      "label": "java",
+      "type": "shell",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "command": "java",
+      "args": ["-cp", "'.;${fileDirname}'", "${fileBasenameNoExtension}"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["javac"]
+    }
+  ]
+}
