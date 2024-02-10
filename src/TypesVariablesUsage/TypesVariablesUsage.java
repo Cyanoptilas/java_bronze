@@ -1,7 +1,7 @@
 package TypesVariablesUsage;
 
 public class TypesVariablesUsage {
-    public static void test() {
+    public static void main(String[] args) {
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("02 データ宣言と使用");
 
@@ -98,7 +98,6 @@ public class TypesVariablesUsage {
 
         // 21.配列の添字
         // System.out.println(ary6[4]); //実行時エラーとなる(文法上は問題ないため)
-
     }
 
     // 14.インスタンス変数
