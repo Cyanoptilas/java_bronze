@@ -2,7 +2,8 @@ package AboutJava;
 
 public class AboutJava {
     public static void test() {
-        System.out.println("01 ABout Java");
+        System.out.println("-----------------------------------------------------------------------");
+        System.out.println("01 Java言語のプログラムの流れ");
         System.out.println("ソースファイル");
         System.out.println("↓実行時コンパイル");
         System.out.println("中間コード(Classファイル)が作成される");
