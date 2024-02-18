@@ -119,6 +119,139 @@ public class InheritancePolymorphism {
                 System.out.println("SubClass6");
             }
         }
+        // ---------------------------------------------------------------
+
+        // No.8 継承+コンストラクター
+        class SuperClass8 {
+            public SuperClass8(String val1) {
+                System.out.println("SuperClass8 Constructor val: " + val1);
+            }
+        }
+
+        class SubClass8 extends SuperClass8 {
+            public SubClass8() {
+                // super("SubClass8!");
+                this("B");
+                // コンストラクターを呼び出すのは先頭1行だけ.ここでは2回呼び出そうとしているのでコンパイルエラーになる.
+                // super()とthis()を同時につい買うことはできない.
+                // ので、下のコンストラクターに
+            }
+
+            // ↓ コンストラクターをオーバーロードしている
+            public SubClass8(String val2) {
+                super("SubClass8!!" + val2);
+            }
+        }
+
+        new SubClass8();
+        // ---------------------------------------------------------------
+
+        // No.10 オーバーライド(再定義)
+        class SuperClass10 {
+            protected void hello() {
+                System.out.println("SuperClass10 hello()");
+            }
+
+            public SuperClass10 method1() {
+                System.out.println("SuperClass10 method1()");
+                SuperClass10 aaa = new SuperClass10();
+                return aaa;
+            }
+        }
+        // ↓ オーバーライド(他クラスで再定義)
+        class SubClass10 extends SuperClass10 {
+            protected void hello() {
+                System.out.println("SubClass10 hello");
+            }
+
+            // ↓サブクラスの型に変更してオーバーライド可能
+            public SubClass10 method1() {
+                System.out.println("SubClass10 method1()");
+                SubClass10 bbb = new SubClass10();
+                return bbb;
+            }
+            // オーバーライドは、アクセス修飾子を厳しい方に変更するのは不可(Ex.protected → private).
+            // ゆるくする方は可能(Ex.無印 → public)
+        }
+
+        SuperClass10 superClass10 = new SuperClass10();
+        superClass10.hello();
+        superClass10.method1();
+        SubClass10 subClass10 = new SubClass10();
+        subClass10.hello();
+        subClass10.method1();
+        // ---------------------------------------------------------------
+
+        // No.11 オーバーライドしたときの例外処理
+        class SuperClass11 {
+            public void method11() throws RuntimeException, IndexOutOfBoundsException {
+                System.out.println("SuperClass11 method11A");
+            }
+        }
+
+        class SubClass11A extends SuperClass10 {
+            public void method11() { // ← オーバーライドしたメソッドで例外を発生させる必要なし.throwは無くてもOK.
+                System.out.println("SubClass11 method11A");
+            }
+        }
+
+        class SubClass11B extends SuperClass11 {
+            public void method11() throws ArrayIndexOutOfBoundsException { // ← オーバーライドしたメソッドで例外の数を減らすのはOK.
+                System.out.println("SubClass11 method11A");
+            }
+        }
+
+        class SubClass11C extends SuperClass11 {
+            public void method11() throws NullPointerException, ArrayIndexOutOfBoundsException {
+                // ↑ オーバーライドした例外のサブクラスはOK.
+                // RuntimeException.NullPointerException
+                // IndexOutOfBoundsException.ArrayIndexOutOfBoundsException
+                System.out.println("SubClass11 method11A");
+            }
+        }
+
+        SuperClass11 superClass11 = new SuperClass11();
+        superClass11.method11();
+        // ---------------------------------------------------------------
+
+        // No.12
+        class SuperClass12 {
+            public void method12() {
+                System.out.println("SuperClass12 method12()");
+            }
+        }
+
+        class SubClass12 extends SuperClass12 {
+            public void method12() {
+                // super(); // ← コンストラクターではないので使えない.
+                super.method12();
+                System.out.println("SubClass12 method12()");
+            }
+        }
+
+        SubClass12 subClass12 = new SubClass12();
+        subClass12.method12();
+        // ---------------------------------------------------------------
+
+        // No.13/14 Interface内フィールド/メソッドの修飾子
+        // インターフェースは、「情報隠蔽」のうちの公開する側の情報を記述するのに使う.
+        interface interface13A {
+            static int test1 = 0;
+            final String test2 = "aaa";
+            public int test3 = 1;
+            // private int test4 = 3; // NG. only public, static & final are permitted
+
+            static void method1() {
+                System.out.println("method1()");
+            }
+
+            abstract void method2();
+
+            private void method3() {
+            };
+
+        }
 
     }
+
 }
